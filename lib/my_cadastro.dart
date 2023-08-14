@@ -10,8 +10,8 @@ class MyCadastro extends StatefulWidget {
 
 class _MyCadastroState extends State<MyCadastro> {
   String nome = "";
-  int ra = 0;
-  TextEditingController campoRa = TextEditingController();
+  int senha = 0;
+  TextEditingController campoSenha = TextEditingController();
   TextEditingController campoNome = TextEditingController();
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -29,36 +29,46 @@ class _MyCadastroState extends State<MyCadastro> {
               children: [
                 
                 TextFormField(
-                  controller: campoRa,
+                  controller: campoSenha,
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return ("o Ra não pode ser vazio");
-                    } else if (int.parse(campoRa.text) < 10) {
+                      return ("a Senha não pode ser vazia");
+                    } else if (int.parse(campoSenha.text) < 10) {
                       //else if(campoRa.text.length<10){
 
-                      return ("o RA deve ser maior que 10");
+                      return ("a Senha deve ser pelo menos 3 carácteres");
                     }
 
                     return null;
                   },
+
+                  decoration: InputDecoration  (
+                    //dentro de 1 parenteses é só vírgula
+                    
+                    labelText: "Senha",
+                    ),
                 ),
              
                 TextFormField(
                   controller: campoNome,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return ("o nome não pode ser vazio");
+                      return ("Preencher nome do usuário");
                     } else {
                       if (campoNome.text.length < 5) {
-                        return ("o nome precisa ter mais que 5 caracteres");
+                        return ("o nome precisa ter mais que 5 carácteres");
                       }
                     }
                     return null;
                   },
+
+                  decoration: InputDecoration(
+                    labelText: "Nome do usuário",
+                  ),
                 )
               ],
             ),
@@ -69,13 +79,13 @@ class _MyCadastroState extends State<MyCadastro> {
               onPressed: () {
                 if (formKey.currentState!.validate()) {
                   mostrarMensagem();
-                  ra = int.parse(campoRa.text);
+                  senha = int.parse(campoSenha.text);
                   nome = campoNome.text;
                   setState(() {});
                 }
               },
-              child: Text("Cadastrar")),
-          Text("Valores digitados: $ra, $nome"),
+              child: Text("Entrar")),
+          Text("Valores digitados: $senha, $nome"),
         ],
       )),
     );
@@ -83,7 +93,7 @@ class _MyCadastroState extends State<MyCadastro> {
 
 void mostrarMensagem(){
   ScaffoldMessenger.of(context).showSnackBar( 
-    SnackBar(content: Text('Aluno cadastrado com sucesso'))
+    SnackBar(content: Text('Usuário correto!'))
   );
 }
 
