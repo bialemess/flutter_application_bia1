@@ -9,7 +9,7 @@ class MyCadastro extends StatefulWidget {
 }
 
 class _MyCadastroState extends State<MyCadastro> {
-  String nome = "";
+  String nome = "a";
   int ra = 0;
   TextEditingController campoRa = TextEditingController();
   TextEditingController campoNome = TextEditingController();
